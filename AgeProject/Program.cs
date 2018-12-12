@@ -10,12 +10,74 @@ namespace AgeProject
     {
         public enum Gender {Female, Male}
 
+        public static void Retirement(String gender ,int age)
+        {
+            int DiffAge = 0;
+
+            if (gender == "m")
+            {
+                if (age < 65)
+                {
+                    DiffAge = 65 - age;
+                    Console.WriteLine("You have " + DiffAge + " till retirement");
+                }
+
+                else
+                {
+                    DiffAge = age - 65;
+                    Console.WriteLine("You retired for " + DiffAge + "ages");
+                }
+            }
+
+            if (gender == "f")
+            {
+                if (age < 62)
+                {
+                    DiffAge = 62 - age;
+                    Console.WriteLine("You have " + DiffAge + " till retirement");
+                }
+
+                else
+                {
+                    DiffAge = age - 62;
+                    Console.WriteLine("You retired for " + DiffAge + "ages");
+                }
+            }
+
+            
+        }
+
+        public static int AgeCheck(DateTime BornDate, DateTime NowDate)
+        {
+
+            int age = 0;
+            if ((NowDate.Month - BornDate.Month) < 0)
+            {
+                age = NowDate.Year - BornDate.Year - 1;
+
+            }
+            else
+            {
+
+                age = NowDate.Year - BornDate.Year;
+
+            }
+
+            return age;
+        }
+
         static void Main(string[] args)
         {
             string BirthYearString, BirthMonthString, BirthDayString; //Variables for reading from keyboard the year,month and day
             string FirstName, LastName; // Variable used for First Name and Last Name
             bool ParseTry1, ParseTry2, ParseTry3; // For trying to parse
-            DateTime BornDate;   
+            DateTime BornDate;
+            DateTime now = DateTime.Now;
+            int NowYear = now.Year;
+            int NowMonth = now.Month;
+            int NowDay = now.Day;
+            int age = 0;
+            
 
             Console.WriteLine("Hello ,please give us your name");
 
@@ -64,13 +126,15 @@ namespace AgeProject
             }
 
             BornDate = new DateTime(BirthYear,BirthMonth,BirthDay);
-            Console.WriteLine("Thank you !!\nYou were born in {0}", BornDate);
+            Console.WriteLine("Thank you !!\nYou were born in {0}", BornDate.ToShortDateString());
 
+            age = AgeCheck(BornDate, now);
 
+            Console.WriteLine("So " + FirstName + ",you have " + age + " age now give us your gender\n M-for Male and F-for Female");
+            string gender = Console.ReadLine();
+            gender = gender.ToLower();
 
-
-
-
+            Retirement(gender, age);
 
 
             Console.ReadLine(); //For keeping the the window opened till you press enter 
